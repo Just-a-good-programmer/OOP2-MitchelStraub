@@ -108,6 +108,11 @@ public class MyDodo extends Dodo
         }
     }
     
+    public void stepOneCellBackwards() {
+        turn180();
+        step();
+        turn180();
+    }
     
     public void turn180() {
           turnRight();
@@ -118,6 +123,7 @@ public class MyDodo extends Dodo
         move();
         if (grainAhead()){
             System.out.println("Look! There's grain here!");
+            stepOneCellBackwards();
             return true;
         } else{
             System.out.println("No grain to be ahead...");
@@ -133,13 +139,16 @@ public class MyDodo extends Dodo
      *              Coordinates of each cell printed in the console.
      */
 
-    public void walkToWorldEdgePrintingCoordinates( ){
+    public void walkToWorldEdge( ){
         while( ! borderAhead() ){
-            int x= getX();
-            int y= getY();
-            System.out.println("Coordinates: " + x + y);
             move();
         }
+    }
+    
+    public void goBackToStartOfRowAndFaceBack( ){
+        turn180();
+        walkToWorldEdge();
+        turn180();
     }
     
     public void walkToWorldEdgeClimbingOverFences() {
@@ -149,6 +158,12 @@ public class MyDodo extends Dodo
             } else {
                 move();
             }
+        }
+    }
+    
+    public void gotoEgg(){
+        while (! onEgg() ){
+            move();
         }
     }
     
