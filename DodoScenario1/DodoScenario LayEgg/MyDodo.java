@@ -151,6 +151,17 @@ public class MyDodo extends Dodo
         turn180();
     }
     
+    public void layEggsInNests (){
+        walkToWorldEdge();
+        while (onNest()) {
+            layEgg();
+            move();
+        }        
+        
+        
+        }
+    
+    
     public void walkToWorldEdgeClimbingOverFences() {
         while(!borderAhead()){
             if(fenceAhead()){
