@@ -16,7 +16,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class Mauritius extends World
 {
-    private static final String WORLD_NAME = "worldEmpty.txt";
+    private static final String WORLD_NAME = "worldEmptyNestsTopRow.txt";
     private static File WORLD_FILE = null;
 
     private static final int MAXWIDTH = 10, MAXHEIGHT = 10, CELLSIZE = 60;
@@ -226,7 +226,6 @@ public class Mauritius extends World
      */
     private void prepare()
     {
-        MyDodo myDodo = new MyDodo();
-        addObject(myDodo,2,4);
+        
     }
 }
