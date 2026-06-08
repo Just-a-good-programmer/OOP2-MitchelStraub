@@ -152,12 +152,21 @@ public class MyDodo extends Dodo
     }
     
     public void layEggsInNests (){
-        walkToWorldEdge();
-        while (onNest()) {
+        while(!borderAhead()){
+        if (onNest()) {
             layEgg();
             move();
-        }        
-        
+        } else {
+            move();
+        }  
+        }
+        if(borderAhead()){
+            if (onNest()) {
+                layEgg();
+            } else {
+                System.out.println("Border reached!");
+            }
+        }
         
         }
     
