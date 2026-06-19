@@ -134,7 +134,7 @@ public class MyDodo extends Dodo
      */
 
     public void walkToWorldEdge(){
-        while( ! borderAhead() ){
+        while( !borderAhead() ){
             move();
         }
     }
@@ -150,11 +150,21 @@ public class MyDodo extends Dodo
     }
     
     public void layEggsinNests(){
+        while(! borderAhead()){
         if (onNest()){
             layEgg();
             
+        }if(fenceAhead()){
+                climbOverFence();
+            } else {
+                move();
+            }
         }
-        walkToWorldEdge();
+        if (onNest()){
+            layEgg();
+            
+        
+        }
         
     }
     

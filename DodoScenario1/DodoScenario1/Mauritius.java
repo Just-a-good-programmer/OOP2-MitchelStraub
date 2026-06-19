@@ -16,7 +16,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class Mauritius extends World
 {
-    private static final String WORLD_NAME = "worldempty.txt";
+    private static final String WORLD_NAME = "worldFencedArea.txt";
     private static File WORLD_FILE = null;
 
     private static final int MAXWIDTH = 10, MAXHEIGHT = 10, CELLSIZE = 60;
@@ -134,16 +134,7 @@ public class Mauritius extends World
                 }
                 WORLD_READER.close();
                 WORLD_READER = null;
-                MyDodo myDodo = new MyDodo();
-                addObject(myDodo,1,4);
-                Fence fence = new Fence();
-                addObject(fence,2,4);
-                Fence fence2 = new Fence();
-                addObject(fence2,4,4);
-                Fence fence3 = new Fence();
-                addObject(fence3,7,4);
-                Nest nest = new Nest();
-                addObject(nest,8,4);
+                
             } catch ( IOException ioe ) {
             }
         }            
@@ -238,6 +229,5 @@ public class Mauritius extends World
     private void prepare()
     {
 
-        
     }
 }
