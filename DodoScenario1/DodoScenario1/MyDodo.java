@@ -168,6 +168,14 @@ public class MyDodo extends Dodo
         
     }
     
+    public void walkAroundFencedArea() {
+        
+            if(!fenceAhead()){
+                turnRight();
+            } else {
+            
+        }
+    }
     public void pickUpGrainsAndPrintCoordinates(){
         if(onGrain()){
             removeTouching(Grain.class);
