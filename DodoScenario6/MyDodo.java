@@ -67,7 +67,13 @@ public class MyDodo extends Dodo
             nrStepsTaken++;                 // increment the counter
         }
     }
-
+    
+    public void moveRandomly(int randomDirection) {
+        int myNrOfStepsTaken = 0;
+        while (myNrOfStepsTaken < Mauritius.MAXSTEPS){
+            
+        }
+    }
     /**
      * Places all the Egg objects in the world in a list.
      * 
@@ -76,7 +82,7 @@ public class MyDodo extends Dodo
     public List<Egg> getListOfEggsInWorld() {
         return getWorld().getObjects(Egg.class);
     }
-
+    
     public List<Integer> createListOfNumbers() {
         return new ArrayList<> (Arrays.asList( 2, 43, 7, -5, 12, 7 ));
     }
