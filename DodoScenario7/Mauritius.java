@@ -20,9 +20,9 @@ public class Mauritius extends World
     private static File WORLD_FILE = null;
 
     private static final int MAXWIDTH = 12, MAXHEIGHT = 12, CELLSIZE = 60;
-    
-    private Scoreboard theScoreboard = new Scoreboard ( "Moves left:", MAXSTEPS, "Score:", 0);
-    
+    private int score = 0;
+    private int stepsLeft = 40;
+    private Scoreboard theScoreboard = new Scoreboard ( "Moves left:", stepsLeft, "Score:", score);
     public static final int MAXSTEPS = 40;
 
     private static boolean traceOn = true;
@@ -65,8 +65,8 @@ public class Mauritius extends World
         setPaintOrder (Message.class, Scoreboard.class, Dodo.class, Grain.class,
                        Nest.class, Egg.class, Fence.class);        
         populate();
-        // remove comment if you want to add a scoreboard
-        // addScoreboard();
+        
+        addScoreboard();
     }
 
     public static void traceOn() {
@@ -203,6 +203,7 @@ public class Mauritius extends World
             initWorldInfo();
             Greenfoot.setWorld( new Mauritius () );
         }
+        
     }
 
     public static boolean checkCellContent( Actor actor, int x, int y, Class... forbiddenClasses) {
@@ -223,5 +224,15 @@ public class Mauritius extends World
     private static void showError( World world, String err_msg ) {
         Message.showMessage(  new Alert (err_msg), world );
     }
-        
+    public int getScore(){
+        return score;
+    }
+    public int getSteps(){
+        return stepsLeft;
+    }
+    public void updateScore(int stepsLeft, int score){
+        this.stepsLeft = stepsLeft;
+        this.score = score;
+        theScoreboard.updateScore(stepsLeft, score);
+    }   
 }

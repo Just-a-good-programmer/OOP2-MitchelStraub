@@ -22,8 +22,68 @@ public class MyDodo extends Dodo
     /* METHODS OF THE CLASS: */
 
     public void act() {
+        pickUpNearestEggInList();
     }
+    
+    public void pickUpNearestEggInList() {
 
+        int stepsLeft = ((Mauritius) getWorld()).getSteps();
+        int score = ((Mauritius) getWorld()).getScore();
+        while(myNrOfStepsTaken < Mauritius.MAXSTEPS){ 
+            Egg closest = findClosestEgg();
+            if(closest != null){
+            int direction= 1;
+            int dx = closest.getX() - getX();
+            int dy = closest.getY() - getY();
+            int stepsX = Math.abs(dx);
+            int stepsY = Math.abs(dy);
+            
+            if (dx > 0) {
+    		direction = EAST;
+    		setDirection(direction);
+            } if (dx < 0) {
+    		direction = WEST;
+    		setDirection(direction);
+            }
+            while (stepsX > 0 && myNrOfStepsTaken < Mauritius.MAXSTEPS) {
+                move();
+                stepsX--;
+                myNrOfStepsTaken++;
+                stepsLeft = stepsLeft - 1;
+                ((Mauritius) getWorld()).updateScore(stepsLeft, score);
+            }
+            if (dy > 0) {
+    		direction = SOUTH;
+    		setDirection(direction);
+            } if (dy < 0) {
+    		direction = NORTH;
+    		setDirection(direction);
+            }
+            while (stepsY > 0 && myNrOfStepsTaken < Mauritius.MAXSTEPS) {
+                move();    
+                stepsY--;
+                myNrOfStepsTaken++;
+                stepsLeft = stepsLeft - 1;
+                ((Mauritius) getWorld()).updateScore(stepsLeft, score);
+            }
+            if ( onEgg()) {
+                pickUpEgg();
+                if(closest instanceof BlueEgg){
+                    score = score + 1;
+                }if (closest instanceof GoldenEgg){
+                    score = score + 5;
+                } if (closest instanceof SurpriseEgg) {
+                    score = score + 1; 
+                    
+                }
+            } else {
+            break;
+            }
+            ((Mauritius) getWorld()).updateScore(stepsLeft, score);
+        }
+        
+        } 
+    }
     /**
      * Move one cell forward in the current direction.
      * 
@@ -38,7 +98,24 @@ public class MyDodo extends Dodo
             showError( "I'm stuck!" );
         }
     }
-
+    public Egg findClosestEgg() {
+        List<Egg> eggs = getListOfEggsInWorld();
+        int myX = getX();
+        int myY = getY();
+        int steps = Mauritius.MAXSTEPS;
+        Egg nearestEgg = null;
+        for (Egg egg : eggs){
+            int dx = egg.getX() - myX;
+            int dy = egg.getY() - myY;
+            int distance = Math.abs(dx) + Math.abs(dy);
+            if (distance < steps){
+		steps = distance;
+		nearestEgg = egg;
+            } 
+            
+        }
+        return nearestEgg;
+    }
     /**
      * Test if Dodo can move forward, 
      * i.e. there are no obstructions or end of world in the cell in front of her.
