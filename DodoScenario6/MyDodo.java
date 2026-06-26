@@ -104,7 +104,7 @@ public class MyDodo extends Dodo
     		direction = WEST;
     		setDirection(direction);
             }
-            while (stepsX > 0) {
+            while (stepsX > 0 && myNrOfStepsTaken < Mauritius.MAXSTEPS) {
                 move();
                 stepsX--;
                 myNrOfStepsTaken++;
@@ -118,7 +118,7 @@ public class MyDodo extends Dodo
     		direction = NORTH;
     		setDirection(direction);
             }
-            while (stepsY > 0) {
+            while (stepsY > 0 && myNrOfStepsTaken < Mauritius.MAXSTEPS) {
                 move();    
                 stepsY--;
                 myNrOfStepsTaken++;
@@ -139,6 +139,8 @@ public class MyDodo extends Dodo
             break;
             }
             ((Mauritius) getWorld()).updateScore(stepsLeft, score);
+        } else {
+            break;
         }
         
         } 
