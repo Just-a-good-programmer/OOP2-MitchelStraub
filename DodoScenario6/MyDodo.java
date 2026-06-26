@@ -16,6 +16,7 @@ public class MyDodo extends Dodo
     }
 
     public void act() {
+        pickUpNearestEggInList();
     }
 
     /**
@@ -84,43 +85,64 @@ public class MyDodo extends Dodo
     public void pickUpNearestEggInList() {
         
         int myNrOfStepsTaken = 0;
+        int stepsLeft = ((Mauritius) getWorld()).getSteps();
+        int score = ((Mauritius) getWorld()).getScore();
+        
         while(myNrOfStepsTaken < Mauritius.MAXSTEPS){ 
             Egg closest = findClosestEgg();
+            if(closest != null){
             int direction= 1;
             int dx = closest.getX() - getX();
             int dy = closest.getY() - getY();
             int stepsX = Math.abs(dx);
             int stepsY = Math.abs(dy);
+            
             if (dx > 0) {
-    		direction = 1;
+    		direction = EAST;
     		setDirection(direction);
             } if (dx < 0) {
-    		direction = 3;
+    		direction = WEST;
     		setDirection(direction);
             }
             while (stepsX > 0) {
                 move();
                 stepsX--;
                 myNrOfStepsTaken++;
+                stepsLeft = stepsLeft - 1;
+                ((Mauritius) getWorld()).updateScore(stepsLeft, score);
             }
             if (dy > 0) {
-    		direction = 2;
+    		direction = SOUTH;
     		setDirection(direction);
             } if (dy < 0) {
-    		direction = 0;
+    		direction = NORTH;
     		setDirection(direction);
             }
             while (stepsY > 0) {
                 move();    
                 stepsY--;
                 myNrOfStepsTaken++;
+                stepsLeft = stepsLeft - 1;
+                ((Mauritius) getWorld()).updateScore(stepsLeft, score);
             }
-            if ( onEgg() ) {
+            if ( onEgg()) {
                 pickUpEgg();
-            } 
+                if(closest instanceof BlueEgg){
+                    score = score + 1;
+                }if (closest instanceof GoldenEgg){
+                    score = score + 5;
+                } if (closest instanceof SurpriseEgg) {
+                    score = score + 1; 
+                    
+                }
+            } else {
+            break;
+            }
+            ((Mauritius) getWorld()).updateScore(stepsLeft, score);
+        }
+        
         } 
     }
-    
     public Egg findClosestEgg() {
         List<Egg> eggs = getListOfEggsInWorld();
         int myX = getX();

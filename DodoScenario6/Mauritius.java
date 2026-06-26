@@ -20,8 +20,9 @@ public class Mauritius extends World
     private static File WORLD_FILE = null;
 
     private static final int MAXWIDTH = 10, MAXHEIGHT = 10, CELLSIZE = 60;
-    public static int score = 0;
-    private Scoreboard theScoreboard = new Scoreboard ( "Moves left:", MAXSTEPS, "Score:", score);
+    public int score = 0;
+    public int stepsLeft = 40;
+    private Scoreboard theScoreboard = new Scoreboard ( "Moves left:", stepsLeft, "Score:", score);
 
     public static final int MAXSTEPS = 40;
 
@@ -199,6 +200,7 @@ public class Mauritius extends World
             initWorldInfo();
             Greenfoot.setWorld( new Mauritius () );
         }
+        
     }
 
     public static boolean checkCellContent( Actor actor, int x, int y, Class... forbiddenClasses) {
@@ -219,25 +221,23 @@ public class Mauritius extends World
     private static void showError( World world, String err_msg ) {
         Message.showMessage(  new Alert (err_msg), world );
     }
-
+    public int getScore(){
+        return score;
+    }
+    public int getSteps(){
+        return stepsLeft;
+    }
+    public void updateScore(int stepsLeft, int score){
+        this.stepsLeft = stepsLeft;
+        this.score = score;
+        theScoreboard.updateScore(stepsLeft, score);
+    }
     /**
      * Prepare the world for the start of the program.
      * That is: create the initial objects and add them to the world.
      */
     private void prepare()
     {
-        BlueEgg blueEgg = new BlueEgg();
-        addObject(blueEgg,7,2);
-        BlueEgg blueEgg2 = new BlueEgg();
-        addObject(blueEgg2,2,0);
-        BlueEgg blueEgg3 = new BlueEgg();
-        addObject(blueEgg3,11,5);
-        BlueEgg blueEgg4 = new BlueEgg();
-        addObject(blueEgg4,9,9);
-        blueEgg4.setLocation(11,8);
-        blueEgg3.setLocation(10,4);
-        blueEgg4.setLocation(11,6);
-        blueEgg2.setLocation(11,2);
-        blueEgg4.setLocation(11,7);
+        addObject(theScoreboard, 9, 0);
     }
 }
