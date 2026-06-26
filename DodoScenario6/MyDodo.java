@@ -81,10 +81,44 @@ public class MyDodo extends Dodo
         }
     }
     
-    public void pickUpNearestEggInList () {
-        Egg closestEgg = findClosestEgg();
+    public void pickUpNearestEggInList() {
         
-        
+        int myNrOfStepsTaken = 0;
+        while(myNrOfStepsTaken < Mauritius.MAXSTEPS){ 
+            Egg closest = findClosestEgg();
+            int direction= 1;
+            int dx = closest.getX() - getX();
+            int dy = closest.getY() - getY();
+            int stepsX = Math.abs(dx);
+            int stepsY = Math.abs(dy);
+            if (dx > 0) {
+    		direction = 1;
+    		setDirection(direction);
+            } if (dx < 0) {
+    		direction = 3;
+    		setDirection(direction);
+            }
+            while (stepsX > 0) {
+                move();
+                stepsX--;
+                myNrOfStepsTaken++;
+            }
+            if (dy > 0) {
+    		direction = 2;
+    		setDirection(direction);
+            } if (dy < 0) {
+    		direction = 0;
+    		setDirection(direction);
+            }
+            while (stepsY > 0) {
+                move();    
+                stepsY--;
+                myNrOfStepsTaken++;
+            }
+            if ( onEgg() ) {
+                pickUpEgg();
+            } 
+        } 
     }
     
     public Egg findClosestEgg() {
@@ -103,7 +137,6 @@ public class MyDodo extends Dodo
             } 
             
         }
-        System.out.println(steps);
         return nearestEgg;
     }
     /**
