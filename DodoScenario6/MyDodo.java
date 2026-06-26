@@ -80,6 +80,32 @@ public class MyDodo extends Dodo
             
         }
     }
+    
+    public void pickUpNearestEggInList () {
+        Egg closestEgg = findClosestEgg();
+        
+        
+    }
+    
+    public Egg findClosestEgg() {
+        List<Egg> eggs = getListOfEggsInWorld();
+        int myX = getX();
+        int myY = getY();
+        int steps = Mauritius.MAXSTEPS;
+        Egg nearestEgg = null;
+        for (Egg egg : eggs){
+            int dx = egg.getX() - myX;
+            int dy = egg.getY() - myY;
+            int distance = Math.abs(dx) + Math.abs(dy);
+            if (distance < steps){
+		steps = distance;
+		nearestEgg = egg;
+            } 
+            
+        }
+        System.out.println(steps);
+        return nearestEgg;
+    }
     /**
      * Places all the Egg objects in the world in a list.
      * 
